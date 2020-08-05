@@ -1,4 +1,5 @@
 import torch
+from torch import tensor
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
@@ -38,33 +39,62 @@ class Net(nn.Module):
 
 
 if __name__ == '__main__':
-    net = Net()
-    # 定义随机输入数据
-    input_data = torch.randn(1, 1, 32, 32)
-    print(input_data)
-    print(input_data.shape)
-    # 运行神经网络
-    result = net.forward(input_data)
-    print(f'result1: {result}')
-    print(f'result1_size: {result.size()}')
-    # 随机生成真实值
-    target = torch.randn(2)
-    target = target.view(1, -1)
-    print(f'target: {target}')
-    print(f'target_shape: {target.shape}')
-    # 计算损失
-    criterion = nn.L1Loss()  # 定义损失函数
-    loss = criterion(result, target)  # 计算损失
-    print(f'loss1: {loss}')
-    # 反向传递
-    net.zero_grad()  # 清零梯度
-    loss.backward()  # 自动计算梯度，反向传递
-    # 更新权重
-    optimizer = optim.SGD(net.parameters(), lr=0.01)
-    optimizer.step()
-    # 重新计算
-    result = net.forward(input_data)
-    print(f'result2: {result}')
-    print(f'result2_size: {result.size()}')
-    loss = criterion(result, target)  # 计算损失
-    print(f'loss2: {loss}')
+    # net = Net()
+    # # 定义随机输入数据
+    # input_data = torch.randn(1, 1, 32, 32)
+    # print(input_data)
+    # print(input_data.shape)
+    # # 运行神经网络
+    # result = net.forward(input_data)
+    # print(f'result1: {result}')
+    # print(f'result1_size: {result.size()}')
+    # # 随机生成真实值
+    # target = torch.randn(2)
+    # target = target.view(1, -1)
+    # print(f'target: {target}')
+    # print(f'target_shape: {target.shape}')
+    # # 计算损失
+    # criterion = nn.L1Loss()  # 定义损失函数
+    # loss = criterion(result, target)  # 计算损失
+    # print(f'loss1: {loss}')
+    # # 反向传递
+    # net.zero_grad()  # 清零梯度
+    # loss.backward()  # 自动计算梯度，反向传递
+    # # 更新权重
+    # optimizer = optim.SGD(net.parameters(), lr=0.01)
+    # optimizer.step()
+    # # 重新计算
+    # result = net.forward(input_data)
+    # print(f'result2: {result}')
+    # print(f'result2_size: {result.size()}')
+    # loss = criterion(result, target)  # 计算损失
+    # print(f'loss2: {loss}')
+
+    # scalar
+    x = tensor(42.)
+    print(f'x: {x}')
+    print(f'x: {x.dim()}')
+    x = 2 * x
+    print(f'x: {x}')
+    print(f'x: {x.item()}')
+
+    # vector
+    v = tensor([1.5, 0.5, -0.5])
+    print(f'v: {v}')
+    print(f'v: {v.dim()}')
+    v = 2 * v
+    print(f'v: {v}')
+    print(f'v: {v.size()}')
+
+    # matrix
+    m = tensor(
+        [
+            [1., 2.],
+            [3., 4.]
+        ]
+    )
+    print(f'm: {m}')
+    m = 2 * m
+    print(f'm: {m}')
+    m = m.matmul(m)
+    print(f'm: {m}')
